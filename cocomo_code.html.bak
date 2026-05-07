@@ -38,7 +38,7 @@
       overflow-x: hidden;
     }
 
-    /* ── SCROLLBAR & SELECTION ── */
+    /* ── SCROLLBAR ── */
     ::-webkit-scrollbar {
       width: 4px;
     }
@@ -49,20 +49,6 @@
 
     ::-webkit-scrollbar-thumb {
       background: var(--red);
-    }
-
-    ::selection {
-      background: var(--red);
-      color: var(--white);
-    }
-
-    .service-hero-card ::selection,
-    .btn-primary ::selection,
-    .nav-cta ::selection,
-    .hero-h1 .red-box ::selection,
-    .petpooja-card-icon ::selection {
-      background: rgba(255, 255, 255, 0.9);
-      color: var(--red);
     }
 
     /* ── NAV ── */
@@ -562,24 +548,70 @@
 
     /* ── FEATURED CAMPAIGN ── */
     #petpooja-feature {
-      margin-top: 5rem;
-      padding: 0;
-      background: transparent;
-      border: none;
+      padding: 6rem 5%;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(176, 58, 46, 0.14), transparent 28%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
     }
 
     .petpooja-panel {
       position: relative;
       overflow: hidden;
-      border-radius: 2px;
-      background: var(--bg3);
+      min-height: 620px;
+      border-radius: 0;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.045), transparent 28%),
+        linear-gradient(180deg, #101010, #080808);
       border: 1px solid var(--border);
-      padding: 4rem;
+      padding: clamp(2.5rem, 5vw, 5rem);
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
+      grid-template-columns: minmax(300px, 0.9fr) minmax(360px, 1fr);
+      gap: clamp(3rem, 7vw, 7rem);
       align-items: center;
-      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.2);
+      isolation: isolate;
+      box-shadow: 0 32px 90px rgba(0, 0, 0, 0.35);
+    }
+
+    .petpooja-panel::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+      background-size: 84px 84px;
+      mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), transparent 70%);
+      opacity: 0.42;
+      pointer-events: none;
+    }
+
+    .petpooja-panel::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -35%;
+      width: 30%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(176, 58, 46, 0.16), transparent);
+      animation: petpoojaScan 6.5s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .petpooja-watermark {
+      position: absolute;
+      right: -5vw;
+      top: 47%;
+      transform: translateY(-50%);
+      font-family: 'Lora', serif;
+      font-size: clamp(7rem, 18vw, 20rem);
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.028);
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+      pointer-events: none;
+      animation: petpoojaWatermark 9s ease-in-out infinite alternate;
     }
 
     .petpooja-content,
@@ -592,16 +624,17 @@
       display: inline-flex;
       align-items: center;
       gap: 0.65rem;
-      padding: 0.4rem 0.8rem;
+      padding: 0.58rem 1.1rem;
       border-radius: 999px;
-      border: 1px solid var(--border);
-      background: rgba(176, 58, 46, 0.1);
+      border: 1px solid rgba(176, 58, 46, 0.45);
+      background: rgba(176, 58, 46, 0.12);
       color: var(--red-light);
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.15em;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
-      margin-bottom: 1.5rem;
+      margin-bottom: 2.5rem;
+      box-shadow: 0 0 30px rgba(176, 58, 46, 0.12);
     }
 
     .petpooja-kicker::before {
@@ -610,94 +643,117 @@
       height: 6px;
       border-radius: 50%;
       background: var(--red-light);
+      box-shadow: 0 0 14px rgba(192, 57, 43, 0.9);
+      animation: petpoojaPulse 1.6s ease-in-out infinite;
     }
 
     .petpooja-title {
       font-family: 'Lora', serif;
-      font-size: clamp(2rem, 4vw, 3rem);
-      line-height: 1.1;
-      font-style: italic;
-      margin-bottom: 1.5rem;
+      font-size: clamp(3rem, 6vw, 5.8rem);
+      line-height: 0.98;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 2rem;
     }
 
     .petpooja-title em {
-      color: var(--white);
-      font-style: normal;
+      display: block;
+      color: var(--red-light);
+      font-weight: 400;
+      text-shadow: 0 0 34px rgba(176, 58, 46, 0.24);
     }
 
     .petpooja-copy {
+      max-width: 760px;
       color: var(--grey);
-      font-size: 0.9rem;
-      line-height: 1.7;
-      margin-bottom: 2.5rem;
+      font-size: clamp(1rem, 1.35vw, 1.25rem);
+      line-height: 1.8;
+      margin-bottom: 3rem;
     }
 
     .petpooja-stats {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2rem;
+      grid-template-columns: repeat(3, minmax(90px, 1fr));
+      gap: clamp(1.5rem, 4vw, 4rem);
+      max-width: 760px;
     }
 
     .petpooja-stat-value {
       font-family: 'Lora', serif;
-      font-size: 2rem;
+      font-size: clamp(2.2rem, 4vw, 3.5rem);
       font-weight: 700;
-      color: var(--white);
+      color: var(--red-light);
       line-height: 1;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.8rem;
+      text-shadow: 0 0 24px rgba(176, 58, 46, 0.26);
     }
 
     .petpooja-stat-label {
       color: var(--dim);
-      font-size: 0.8rem;
+      font-size: 0.9rem;
     }
 
     .petpooja-cards {
       display: grid;
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 1rem;
     }
 
     .petpooja-card {
-      border-radius: 2px;
+      min-height: 170px;
+      border-radius: 0;
       border: 1px solid var(--border);
-      background: var(--bg2);
-      padding: 1.5rem;
+      background: rgba(17, 17, 17, 0.78);
+      padding: 2rem;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      transition: background 0.35s, transform 0.35s, box-shadow 0.35s;
+      backdrop-filter: blur(16px);
+      transition: transform 0.35s ease, border-color 0.35s ease, background 0.35s ease, box-shadow 0.35s ease;
+      animation: petpoojaFloat 5.6s ease-in-out infinite;
     }
 
     .petpooja-card.featured {
-      background: var(--bg2);
-      border-color: var(--red);
+      grid-column: 1 / -1;
+      background: linear-gradient(135deg, rgba(176, 58, 46, 0.18), rgba(17, 17, 17, 0.74));
+      border-color: rgba(176, 58, 46, 0.38);
+      min-height: 180px;
+      animation-delay: -1.2s;
+    }
+
+    .petpooja-card:nth-child(2) {
+      animation-delay: -2.3s;
+    }
+
+    .petpooja-card:nth-child(3) {
+      animation-delay: -3.1s;
     }
 
     .petpooja-card:hover {
-      transform: translateY(-4px);
-      background: var(--bg);
-      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3);
+      transform: translateY(-8px);
+      border-color: rgba(176, 58, 46, 0.55);
+      background: rgba(26, 26, 26, 0.9);
+      box-shadow: 0 24px 52px rgba(0, 0, 0, 0.32), 0 0 36px rgba(176, 58, 46, 0.12);
     }
 
     .petpooja-card-icon {
-      width: 28px;
-      height: 28px;
+      width: 34px;
+      height: 34px;
       border-radius: 50%;
       display: grid;
       place-items: center;
-      background: var(--red);
-      color: var(--white);
-      font-size: 0.8rem;
-      font-weight: 600;
-      margin-bottom: 1rem;
+      background: rgba(176, 58, 46, 0.2);
+      color: var(--red-light);
+      font-weight: 700;
+      margin-bottom: 1.4rem;
+      border: 1px solid rgba(176, 58, 46, 0.34);
     }
 
     .petpooja-card-title {
       color: var(--white);
-      font-size: 0.95rem;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.6rem;
     }
 
     .petpooja-card-copy {
@@ -706,22 +762,85 @@
       line-height: 1.7;
     }
 
+    @keyframes petpoojaScan {
+      0%, 38% {
+        transform: translateX(0);
+        opacity: 0;
+      }
+
+      48%, 58% {
+        opacity: 1;
+      }
+
+      100% {
+        transform: translateX(450%);
+        opacity: 0;
+      }
+    }
+
+    @keyframes petpoojaFloat {
+      0%, 100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    @keyframes petpoojaPulse {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 0.75;
+      }
+
+      50% {
+        transform: scale(1.45);
+        opacity: 1;
+      }
+    }
+
+    @keyframes petpoojaWatermark {
+      from {
+        transform: translate3d(0, -50%, 0);
+      }
+
+      to {
+        transform: translate3d(-3rem, -50%, 0);
+      }
+    }
+
     @media(max-width:900px) {
       .petpooja-panel {
         grid-template-columns: 1fr;
-        gap: 3rem;
-        padding: 3rem;
+        min-height: auto;
+      }
+
+      .petpooja-watermark {
+        top: auto;
+        bottom: 1rem;
+        right: -2rem;
+        transform: none;
       }
     }
 
     @media(max-width:560px) {
+      #petpooja-feature {
+        padding: 2rem 3%;
+      }
+
       .petpooja-panel {
+        border-radius: 24px;
         padding: 2rem;
       }
 
       .petpooja-stats,
       .petpooja-cards {
         grid-template-columns: 1fr;
+      }
+
+      .petpooja-card.featured {
+        grid-column: auto;
       }
     }
 
@@ -1365,7 +1484,50 @@
   </section>
 
   <!-- PETPOOJA FEATURED CAMPAIGN -->
+  <section id="petpooja-feature">
+    <div class="petpooja-panel reveal">
+      <div class="petpooja-watermark">PETPOOJA</div>
+      <div class="petpooja-content">
+        <div class="petpooja-kicker">Featured Campaign</div>
+        <h2 class="petpooja-title">Petpooja's <em>Multi-City</em> Takeover.</h2>
+        <p class="petpooja-copy">We orchestrated an influencer blitz across Mumbai, Delhi, Bangalore, and Pune -
+          putting Petpooja's restaurant management software in front of the people who run India's F&amp;B scene.</p>
+        <div class="petpooja-stats">
+          <div>
+            <div class="petpooja-stat-value">12</div>
+            <div class="petpooja-stat-label">Cities covered</div>
+          </div>
+          <div>
+            <div class="petpooja-stat-value">84</div>
+            <div class="petpooja-stat-label">Creators deployed</div>
+          </div>
+          <div>
+            <div class="petpooja-stat-value">28M+</div>
+            <div class="petpooja-stat-label">Reach generated</div>
+          </div>
+        </div>
+      </div>
 
+      <div class="petpooja-cards">
+        <div class="petpooja-card featured">
+          <div class="petpooja-card-icon">M</div>
+          <div class="petpooja-card-title">Multi-City Execution</div>
+          <p class="petpooja-card-copy">Coordinated creator activations across 12 cities simultaneously - managed by
+            one focused team.</p>
+        </div>
+        <div class="petpooja-card">
+          <div class="petpooja-card-icon">84</div>
+          <div class="petpooja-card-title">84 Creators</div>
+          <p class="petpooja-card-copy">Nano to macro - every tier firing at the right segment.</p>
+        </div>
+        <div class="petpooja-card">
+          <div class="petpooja-card-icon">R</div>
+          <div class="petpooja-card-title">28M+ Reach</div>
+          <p class="petpooja-card-copy">Above-benchmark engagement with content built for attention.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
 
   <!-- SERVICES -->
@@ -1436,53 +1598,6 @@
           impossible to ignore.</p>
       </div>
     </div>
-
-    <div id="petpooja-feature" class="reveal">
-      <div class="petpooja-panel">
-        <div class="petpooja-content">
-          <div class="petpooja-kicker">Featured Campaign</div>
-          <h2 class="petpooja-title">Petpooja's <em>Multi-City</em> Takeover.</h2>
-          <p class="petpooja-copy">We orchestrated an influencer blitz across Mumbai, Delhi, Bangalore, and Pune -
-            putting Petpooja's restaurant management software in front of the people who run India's F&amp;B scene.</p>
-          <div class="petpooja-stats">
-            <div>
-              <div class="petpooja-stat-value">12</div>
-              <div class="petpooja-stat-label">Cities covered</div>
-            </div>
-            <div>
-              <div class="petpooja-stat-value">84</div>
-              <div class="petpooja-stat-label">Creators deployed</div>
-            </div>
-            <div>
-              <div class="petpooja-stat-value">28M+</div>
-              <div class="petpooja-stat-label">Reach generated</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="petpooja-cards">
-          <div class="petpooja-card featured">
-            <div class="petpooja-card-icon">M</div>
-            <div class="petpooja-card-title">Multi-City Execution</div>
-            <p class="petpooja-card-copy">Coordinated creator activations across 12 cities simultaneously - managed by
-              one focused team.</p>
-          </div>
-          <div class="petpooja-card">
-            <div class="petpooja-card-icon">84</div>
-            <div class="petpooja-card-title">84 Creators</div>
-            <p class="petpooja-card-copy">Nano to macro - every tier firing at the right segment.</p>
-          </div>
-          <div class="petpooja-card">
-            <div class="petpooja-card-icon">R</div>
-            <div class="petpooja-card-title">28M+ Reach</div>
-            <p class="petpooja-card-copy">Above-benchmark engagement with content built for attention.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-
   </section>
 
   <!-- COMPARE -->
